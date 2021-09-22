@@ -16,3 +16,13 @@ jp:
   the_form_contains: "このフォームには"
   error: "エラー!"
   welcome: "登録コースへようこそ"
+  invalid_email_password_combination: "もいちどロギングしてください。"
+  log_in: "ログイン"
+  new_user: "新しいユーザー？"
+  sign_up_now: "今すぐサインアップ"
+  users: "ユーザー"
+  account: "アカウント"
+  log_out: "ログアウト"
+  settings: "設定"
+  profile: "プロフィール"
+
