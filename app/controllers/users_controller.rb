@@ -28,6 +28,6 @@ class UsersController < ApplicationController
     return if @user
 
     flash[:error] = t(:error)
-    redirect_to root_path
+    redirect_to home_path
   end
 end

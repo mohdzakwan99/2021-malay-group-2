@@ -3,25 +3,20 @@
 body {
   padding-top: 60px;
 }
-
 section {
   overflow: auto;
 }
-
 textarea {
   resize: vertical;
 }
-
 .center {
   text-align: center;
 }
-
 .center h1 {
   margin-bottom: 10px;
 }
 
 /* header */
-
 #logo {
   float: left;
   margin-right: 10px;
@@ -32,39 +27,36 @@ textarea {
   padding-top: 9px;
   font-weight: bold;
 }
-
 #logo:hover {
   color: #fff;
   text-decoration: none;
 }
-
 /* sidebar */
 aside {
   section.user_info {
-    margin-top: 20px;
-  }
-  section {
-    padding: 10px 0;
-    margin-top: 20px;
-    &:first-child {
-      border: 0;
-      padding-top: 0;
-    }
-    span {
-      display: block;
-      margin-bottom: 3px;
-      line-height: 1;
-    }
-    h1 {
-      font-size: 1.4em;
-      text-align: left;
-      letter-spacing: -1px;
-      margin-bottom: 3px;
-      margin-top: 0px;
-    }
-  }
+   margin-top: 20px;
 }
-
+  section {
+   padding: 10px 0;
+   margin-top: 20px;
+   &:first-child {
+    border: 0;
+    padding-top: 0;
+}
+span {
+  display: block;
+  margin-bottom: 3px;
+  line-height: 1;
+}
+  h1 {
+    font-size: 1.4em;
+    text-align: left;
+    letter-spacing: -1px;
+    margin-bottom: 3px;
+    margin-top: 0px;
+  }
+ }
+}
 .gravatar {
   float: left;
   margin-right: 10px;
@@ -78,27 +70,40 @@ input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
-  // @include box_sizing;
+  //@include box_sizing;
 }
-
 input {
   height: auto !important;
 }
 
 input.btn.btn-primary {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 #error_explanation {
   color: red;
   ul {
-  color: red;
+    color: red;
     margin: 0 0 30px;
   }
 }
-
 .field_with_errors {
+  //@extend .has-error;
   .form-control {
     color: red;
   }
+}
+
+.checkbox {
+   margin-bottom: 10px;
+   margin-top: 10px;
+
+ span {
+   font-weight: normal;
+   margin-left: 20px;
+  }
+}
+#session_remember_me {
+   margin-left: 0;
+   width: auto;
 }
