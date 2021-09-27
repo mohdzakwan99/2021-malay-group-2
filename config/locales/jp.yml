@@ -26,5 +26,16 @@ jp:
   settings: "設定"
   profile: "プロフィール"
   remember_me: "私を覚えて"
-
-
+  edit_user: "ユーザーの編集"
+  update_profile: "プロファイルの更新"
+  save_changes: "変更を保存"
+  create_my_account: "アカウントを作成してください"
+  profile_updated: "プロファイルが更新されました"
+  pls_log_in: "ログインしてください"
+  n_authorized: "あなたは許可されていません！"
+  all_users: "すべてのユーザー"
+  user_deleted: "ユーザーが削除されました"
+  delete_fail: "削除に失敗しました！"
+  sure: "確かに？"
+  p_confirmation: "パスワードの確認"
+  delete: "削除"

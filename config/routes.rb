@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/destroy'
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
       root 'static_pages#home', as: "home"
       get 'static_pages/help', as:"help"
@@ -8,6 +7,6 @@ Rails.application.routes.draw do
       get "/login", to: "sessions#new"
       post "/login", to: "sessions#create"
       delete "/logout", to: "sessions#destroy"
-      resources :users, only: %i(new create show)
+      resources :users
   end
 end
