@@ -8,11 +8,12 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true, length: {minimum: 6}, allow_nil: true
-  scope :newest, -> { order(created_at: :desc) }
   has_secure_password
 
-  has_many :user_courses
-  has_many :courses, through: :user_courses
+  has_many :user_courses, dependent: :destroy
+  has_many :courses, through: :user_courses, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :courses, through: :reviews, dependent: :destroy
 
   class << self
      def new_token

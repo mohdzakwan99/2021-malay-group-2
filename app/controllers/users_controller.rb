@@ -9,10 +9,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    @current_user = current_user
     @user = User.find_by id: params[:id]
+    @user_pending = UserCourse.Pending.all
+    @user_approved = UserCourse.Approved.all
+    @user_denied = UserCourse.Denied.all
+    @user_course = UserCourse.find_by user_id: params[current_user]
     return if @user
-
-    flash[:danger] = "User not found"
+    flash[:danger] = t(:user_x_found)
     redirect_to home_path
   end
 
@@ -77,6 +81,6 @@ class UsersController < ApplicationController
   end
 
   def admin_user
-    redirect_to(root_url) unless current_user.admin?
+    redirect_to(home_url) unless current_user.admin?
   end
 end

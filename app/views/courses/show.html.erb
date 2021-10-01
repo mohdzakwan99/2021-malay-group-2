@@ -1,0 +1,71 @@
+<h1>Course's title: <%= @course.name %></h1>
+<% if current_user&.admin? %>
+  <% if @course.status == t(:opening) %>
+    <small><%= link_to t(:delete), @course, method: :delete, data: {confirm:  t(:sure)} %> | </small>
+  <% end %>
+   <small><%= link_to t(:update), edit_course_path(@course) %></small>
+<% end %>
+
+<p>
+  <b><%= t(:description) %></b> <%= @course.description %><br>
+  <% if @course.status == t(:started) %>
+    <b><%= t(:started_at) %></b>
+    <%= @course.started_at %></br>
+  <% end %>
+  <b><%= t(:total_month) %></b><%= @course.total_month %><br>
+  <b><%= t(:total_member) %></b><%= @course.user_courses.Approved.count %><br>
+  <b><%= t(:status) %></b>
+  <% if @course.status == "Finished" %>
+    <b style="color:red"><%= @course.status %></b>
+  <% elsif @course.status == "Started" %>
+    <b style="color:grey"><%= @course.status %></b>
+  <% else %>
+    <b style="color:green"><%= @course.status %></b>
+  <% end %>
+</p>
+
+<% if !current_user.admin %>
+  <%= form_for @user_course do |f| %>
+    <% if @course.status == "Opening" %>
+      <%= f.hidden_field :user_id, :value => current_user.id %><br>
+      <%= f.hidden_field :course_id, :value => @course.id %><br>
+      <button name="button" type="submit"><%= t(:register) %></button>
+    <% elsif @course.status == "Started" %>
+      <%= f.hidden_field :user_id, :value => current_user.id %><br>
+      <%= f.hidden_field :course_id, :value => @course.id %><br>
+      <button name="button" type="submit"><%= t(:appeal) %></button>
+    <% end %>
+  <% end %>
+<% end %>
+
+<h2><%= t(:student_review) %></h2>
+<%= @course.reviews.each do |r| %>
+  <%= t(:_name) %><%= r.user.name %><br>
+  <%= t(:content) %><%= r.content %>
+  <% if current_user.admin %>
+    | <%= link_to t(:delete), r, method: :delete, data: {confirm: t(:sure)} %><br><br>
+  <% else %>
+    <% if current_user.id == r.user_id %>
+      | <%= link_to t(:delete), r, method: :delete, data: {confirm: t(:sure)} %>
+      | <%= link_to t(:edit), edit_review_path(r) %><br><br>
+    <% else %>
+      <br><br>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if !current_user.admin %>
+  <strong><h3><%= t(:review_course) %></h3><br></strong>
+  <%= form_for @review do |f| %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :course_id, :value => @course.id %>
+    <%= f.label :content, t(:content) %><br>
+    <%= f.text_area :content, class: "form-control" %><br>
+    <%= f.submit t(:create_review), class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+
+
+
+
+

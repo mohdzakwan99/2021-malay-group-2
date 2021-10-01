@@ -1,5 +1,5 @@
 <% if current_user.admin %>
-  <h1><%= t(:add_course) %></h1>
+  <h1>Update course</h1>
   <html>
     <body>
       <div class="row">
@@ -19,7 +19,7 @@
             <%= f.label :status, t(:course_status) %>
             <%= f.select :status, ["Opening", "Started","Finished"] %>
 
-            <%= f.submit t(:create_course), class: "btn btn-primary" %>
+            <%= f.submit "Update", class: "btn btn-primary" %>
           <% end %>
         </div>
       </div>
