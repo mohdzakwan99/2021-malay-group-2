@@ -11,8 +11,10 @@ class User < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
   has_secure_password
 
-  has_many :user_courses
-  has_many :courses, through: :user_courses
+  has_many :user_courses, dependent: :destroy
+  has_many :courses, through: :user_courses, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :courses, through: :reviews, dependent: :destroy
 
   class << self
      def new_token

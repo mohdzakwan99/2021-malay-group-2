@@ -2,15 +2,33 @@
 
 <ul>
   <% @courses.each do |course| %>
-    <li>
-      <%= course.name %><br>
-    </li>
+      <% if current_user&.admin? %>
+        <b><mark><em><%= link_to course.name, course %></b></em></mark>
+        <% if course.status == "Opening" || course.status == "Finished" %>
+          | <%= link_to t(:delete), course, method: :delete, data: {confirm: t(:sure)} %>
+        <% end %>
+        | <%= link_to t(:update), edit_course_path(course) %>
+
+      <% else %>
+        <b><mark><em><%= link_to course.name, course %></b></em></mark>
+      <% end %>
+      <br>
     <p>
-      <%= t(:description) %> <%= course.description %><br>
-      <%= t(:started_at) %> <%= course.started_at %><br>
-      <%= t(:total_month) %> <%= course.total_month %><br>
-      <%= t(:total_member) %> <%= course.total_member %><br>
-      <%= t(:status) %> <%= course.status %>
+      <b><%= t(:description) %></b> <%= course.description %><br>
+      <% if course.status == t(:started) %>
+        <b><%= t(:started_at) %></b>
+        <%= course.started_at %><br>
+      <% end %>
+      <b><%= t(:total_month) %></b> <%= course.total_month %><br>
+      <b><%= t(:total_member) %></b><%= course.user_courses.Approved.count %><br>
+      <b><%= t(:status) %></b>
+      <% if course.status == "Finished" %>
+        <b style="color:red"><%= course.status %></b>
+      <% elsif course.status == "Started" %>
+        <b style="color:grey"><%= course.status %></b>
+      <% else %>
+        <b style="color:green"><%= course.status %></b>
+      <% end %>
     </p>
   <% end %>
 </ul>

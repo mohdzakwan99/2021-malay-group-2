@@ -1,12 +1,72 @@
 <% provide :title, @user.name %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
+<% if current_user.admin %>
+  <%= t(:as_admin) %> <br>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <h1>
+          <%= gravatar_for @user %>
+          <%= @user.name %>
+        </h1>
+      </section>
+    </aside>
+  </div>
 
-</div>
+  <h3><%= t(:pending_registration) %></h3>
+
+  <% @user_pending.each do |pending| %>
+    <li><%= t(:_name) %><%= pending.user.name %><br>
+    <%= t(:course) %><%= pending.course.name %><br>
+    </li>
+    <%= form_for pending do |f| %>
+      <%= f.hidden_field :status, :value => 'Approved' %>
+      <%= f.submit t(:approved), data: {confirm: t(:sure)} %><br>
+    <% end %>
+    <%= form_for pending do |f| %>
+      <%= f.hidden_field :status, :value => 'Denied' %>
+      <%= f.submit t(:deny), data: {confirm: t(:sure)} %><br>
+    <% end %>
+  <% end %>
+
+  <h3><%= t(:student_approved) %></h3>
+
+  <% @user_approved.each do |approved| %>
+    <li><%= t(:_name) %><%= approved.user.name %><br>
+    <%= t(:course) %><%= approved.course.name %><br>
+    </li>
+  <% end %>
+
+  <h3><%= t(:student_denied) %></h3>
+
+  <% @user_denied.each do |denied| %>
+    <li><%= t(:_name) %><%= denied.user.name %><br>
+    <%= t(:course) %><%= denied.user.name %><br>
+    </li>
+  <% end %>
+
+<% else %>
+
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <h1>
+          <%= gravatar_for @user %>
+          <%= @user.name %><br>
+        </h1>
+      </section>
+    </aside>
+  </div>
+
+  <% @user.user_courses.each do |s| %>
+    <% if s.status == "Denied" %>
+      <%= s.course.name %> | <%= link_to t(:course_cancelled), s, method: :delete, data: {confirm: t(:sure)} %><br>
+      <b style="color:red;"><%= s.status %></b><br>
+    <% elsif s.status == "Pending" %>
+      <%= s.course.name %> | <%= link_to t(:course_cancelled), s, method: :delete, data: {confirm: t(:sure)} %><br>
+      <b style="color:darkgrey;"><%= s.status %></b><br>
+    <% else %>
+      <%= s.course.name %> | <%= link_to t(:delete_prototype), s, method: :delete, data: {confirm: t(:sure)} %><br>
+      <b style="color:green;"><%= s.status %></b><br>
+    <% end %>
+  <% end %>
+<% end %>
