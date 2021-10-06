@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     return if current_user?(@user)
     flash[:danger] = t(:n_authorized)
-    redirect_to(root_url) unless current_user?(@user)
+    redirect_to(home_url) unless current_user?(@user)
   end
 
   def admin_user
